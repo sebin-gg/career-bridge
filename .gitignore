@@ -6,3 +6,6 @@ out
 .env
 .env.local
 *.tsbuildinfo
+
+# CI build logs
+build-log.txt
