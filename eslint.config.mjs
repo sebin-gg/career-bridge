@@ -1,15 +1,16 @@
-import { FlatCompat } from "@eslint/eslintrc";
-import { dirname } from "node:path";
-import { fileURLToPath } from "node:url";
+// eslint-config-next 16 ships flat configs, so the legacy FlatCompat bridge is
+// gone: `compat.extends("next/core-web-vitals")` validated the flat config as an
+// eslintrc config and crashed with "Converting circular structure to JSON",
+// which meant `pnpm run lint` could never run.
+import nextCoreWebVitals from "eslint-config-next/core-web-vitals";
+import nextTypescript from "eslint-config-next/typescript";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-const compat = new FlatCompat({ baseDirectory: __dirname });
-const config = [
+const eslintConfig = [
   {
     ignores: [".next/**", "next-env.d.ts"],
   },
-  ...compat.extends("next/core-web-vitals", "next/typescript"),
+  ...nextCoreWebVitals,
+  ...nextTypescript,
 ];
 
-export default config;
+export default eslintConfig;
